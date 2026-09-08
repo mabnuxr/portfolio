@@ -17,8 +17,8 @@
     --border2: rgba(255,255,255,0.14);
     --text: #e8e6df;
     --muted: #7a7870;
-    --accent: #c9a84c;
-    --accent2: #e8c97a;
+    --accent: #ffffff;
+    --accent2: #d8d6cc;
     --serif: 'DM Serif Display', Georgia, serif;
     --mono: 'DM Mono', monospace;
     --sans: 'DM Sans', system-ui, sans-serif;
@@ -142,12 +142,12 @@
 
   .hero-name {
     font-family: var(--serif);
-    font-size: clamp(3.5rem, 8vw, 7.5rem);
-    line-height: 0.95;
+    font-size: clamp(4rem, 10vw, 9rem);
+    line-height: 0.92;
     font-weight: 400;
     color: var(--text);
     margin-bottom: 1.5rem;
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
   }
 
   .hero-name em {
@@ -261,6 +261,115 @@
     color: var(--muted);
   }
 
+  /* --- SELECTED WORK --- */
+  .work {
+    padding: 8rem 2.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .work-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+  }
+
+  .work-item {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 3.5rem;
+    align-items: center;
+  }
+
+  .work-visual {
+    aspect-ratio: 4 / 3;
+    border: 1px solid var(--border);
+    background: var(--bg2);
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.3s ease;
+  }
+
+  .work-visual::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(135deg, var(--border) 0, var(--border) 1px, transparent 1px, transparent 48px);
+    transition: transform 0.5s ease;
+  }
+
+  .work-item:hover .work-visual { border-color: var(--border2); }
+  .work-item:hover .work-visual::before { transform: scale(1.06); }
+
+  .work-visual-num {
+    position: absolute;
+    right: 1.25rem;
+    bottom: 0.75rem;
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 4.5rem;
+    color: var(--border2);
+    line-height: 1;
+  }
+
+  .work-item.is-placeholder .work-visual {
+    border-style: dashed;
+    border-color: var(--border2);
+  }
+
+  .work-item.is-placeholder .work-visual::before { display: none; }
+
+  .work-visual-soon {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .work-item.is-placeholder { opacity: 0.6; }
+
+  .work-meta {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .work-title {
+    font-family: var(--serif);
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+  }
+
+  .work-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .work-desc {
+    font-size: 0.925rem;
+    color: var(--muted);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+  }
+
+  .work-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
   /* --- ABOUT --- */
   .about {
     padding: 8rem 2.5rem;
@@ -277,7 +386,7 @@
 
   .about-headline {
     font-family: var(--serif);
-    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    font-size: clamp(2.1rem, 4.5vw, 3.6rem);
     line-height: 1.2;
     font-weight: 400;
     color: var(--text);
@@ -370,7 +479,7 @@
     position: relative;
   }
 
-  .exp-item:hover { background: linear-gradient(90deg, transparent, rgba(201,168,76,0.03), transparent); }
+  .exp-item:hover { background: linear-gradient(90deg, transparent, rgba(255,255,255,0.03), transparent); }
 
   .exp-left {
     padding-right: 3rem;
@@ -554,13 +663,13 @@
     width: 600px;
     height: 600px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, transparent 70%);
     pointer-events: none;
   }
 
   .contact-headline {
     font-family: var(--serif);
-    font-size: clamp(2rem, 5vw, 4.5rem);
+    font-size: clamp(2.4rem, 7vw, 5.5rem);
     font-weight: 400;
     color: var(--text);
     margin-bottom: 1rem;
@@ -669,6 +778,9 @@
     .nav-links { display: none; }
     .hero { padding: 0 1.5rem 4rem; }
     .hero-meta { display: none; }
+    .work { padding: 5rem 1.5rem; }
+    .work-list { gap: 3.5rem; }
+    .work-item { grid-template-columns: 1fr; gap: 1.5rem; }
     .about { padding: 5rem 1.5rem; }
     .about-grid { grid-template-columns: 1fr; gap: 3rem; }
     .experience { padding: 4rem 1.5rem; }
@@ -689,8 +801,8 @@
 <nav>
   <a class="nav-brand" href="#">mihir abnave</a>
   <ul class="nav-links">
+    <li><a href="#work">Work</a></li>
     <li><a href="#about">About</a></li>
-    <li><a href="#experience">Work</a></li>
     <li><a href="#skills">Skills</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -722,12 +834,70 @@
   </div>
 </section>
 
+<!-- SELECTED WORK -->
+<section class="work" id="work">
+  <div class="section-header reveal">
+    <span class="section-label">Selected Work</span>
+    <div class="section-line"></div>
+    <span class="section-num">01</span>
+  </div>
+
+  <div class="work-list">
+
+    <article class="work-item reveal">
+      <div class="work-visual">
+        <!-- Replace with real product screenshot/mockup -->
+        <span class="work-visual-num">01</span>
+      </div>
+      <div class="work-info">
+        <div class="work-meta">Founding Designer · Scalekit · Jan 2024 – Present</div>
+        <h3 class="work-title">Agent auth, <em>from the ground up.</em></h3>
+        <p class="work-desc">Sole design owner across a developer platform for AI agent authentication — SSO, SCIM provisioning, and OAuth 2.0 token lifecycle interfaces, plus an Agent Auth quickstart with AI-assisted setup for Claude Code, Cursor, and GitHub Copilot. Built and own the Figma component library used across every product surface.</p>
+        <div class="work-tags">
+          <span class="tag">Auth Infrastructure</span>
+          <span class="tag">Agentic AI</span>
+          <span class="tag">Design Systems</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="work-item reveal">
+      <div class="work-visual">
+        <!-- Replace with real product screenshot/mockup -->
+        <span class="work-visual-num">02</span>
+      </div>
+      <div class="work-info">
+        <div class="work-meta">Contract Product Designer · VON (Rattle Software) · May – Jun 2026</div>
+        <h3 class="work-title">Access control for <em>an AI-native RevOps platform.</em></h3>
+        <p class="work-desc">VON lets revenue teams query CRM data, calls, and pipeline in natural language — built on Claude Code, MCP-native. The product shipped with only two roles and no granular permissions, which was blocking enterprise adoption. Designed the full access model — roles, license tiers, object-level and inherited permissions, teams, and integration-level scoping, plus a unified sharing experience used across the app — benchmarked against Notion, Linear, Salesforce, Figma, and Slack, and shipped directly into the product's live Storybook/Tailwind/shadcn design system.</p>
+        <div class="work-tags">
+          <span class="tag">Access & Permissions</span>
+          <span class="tag">Enterprise Design</span>
+          <span class="tag">Design Systems</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="work-item is-placeholder reveal">
+      <div class="work-visual">
+        <span class="work-visual-soon">More coming soon</span>
+      </div>
+      <div class="work-info">
+        <div class="work-meta">Side Project · In Progress</div>
+        <h3 class="work-title">Something new <em>is on the way.</em></h3>
+        <p class="work-desc">A side project currently in the works — check back soon.</p>
+      </div>
+    </article>
+
+  </div>
+</section>
+
 <!-- ABOUT -->
 <section class="about" id="about">
   <div class="section-header reveal">
     <span class="section-label">About</span>
     <div class="section-line"></div>
-    <span class="section-num">01</span>
+    <span class="section-num">02</span>
   </div>
 
   <div class="about-grid">
@@ -778,7 +948,7 @@
   <div class="section-header reveal">
     <span class="section-label">Experience</span>
     <div class="section-line"></div>
-    <span class="section-num">02</span>
+    <span class="section-num">03</span>
   </div>
 
   <div class="exp-grid">
@@ -797,6 +967,22 @@
           <li>Designed SAML/OIDC-based SSO and SCIM provisioning flows, MCP gateway tooling, and OAuth 2.0 token lifecycle interfaces</li>
           <li>Built and own the Figma component library used across all product surfaces</li>
           <li>Operated as PM/design hybrid — strategy, research, and cross-functional collaboration with engineering and GTM</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="exp-item reveal">
+      <div class="exp-left">
+        <div class="exp-company">VON (Rattle Software)</div>
+        <div class="exp-location">Remote (Contract)</div>
+        <div class="exp-tenure">May 2026 – Jun 2026</div>
+      </div>
+      <div class="exp-right">
+        <h3 class="exp-role">Contract Product Designer</h3>
+        <ul class="exp-bullets">
+          <li>Designed the end-to-end access and permissions model for an AI-native RevOps platform — roles, license tiers, object-level and inherited permissions, teams, and integration-level scoping</li>
+          <li>Benchmarked against Notion, Linear, Salesforce, Figma, and Slack; shipped directly into the product's live Storybook/Tailwind/shadcn design system</li>
+          <li>Worked directly with founder/CEO and engineering leadership at a high production-fidelity bar, covering empty and error states</li>
         </ul>
       </div>
     </div>
@@ -886,7 +1072,7 @@
     <div class="section-header reveal">
       <span class="section-label">Skills</span>
       <div class="section-line"></div>
-      <span class="section-num">03</span>
+      <span class="section-num">04</span>
     </div>
 
     <div class="skills-grid stagger">
@@ -932,7 +1118,7 @@
   <div class="section-header reveal">
     <span class="section-label">Education</span>
     <div class="section-line"></div>
-    <span class="section-num">04</span>
+    <span class="section-num">05</span>
   </div>
 
   <div class="edu-grid stagger">
@@ -985,7 +1171,7 @@
 
 <!-- FOOTER -->
 <footer>
-  <p>© 2025 Mihir Abnave</p>
+  <p>© 2026 Mihir Abnave</p>
   <p>Bengaluru, India · mabnuxr@gmail.com</p>
 </footer>
 
