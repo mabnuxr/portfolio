@@ -4,1001 +4,455 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mihir Abnave — Product Designer</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script>
+(function () {
+  try {
+    if (localStorage.getItem('theme') === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  } catch (e) {}
+})();
+</script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #0c0c0b;
-    --bg2: #131312;
-    --bg3: #1a1a18;
-    --border: rgba(255,255,255,0.08);
-    --border2: rgba(255,255,255,0.14);
-    --text: #e8e6df;
-    --muted: #7a7870;
-    --accent: #c9a84c;
-    --accent2: #e8c97a;
-    --serif: 'DM Serif Display', Georgia, serif;
-    --mono: 'DM Mono', monospace;
-    --sans: 'DM Sans', system-ui, sans-serif;
+    --bg: #000000;
+    --surface: #0a0a0a;
+    --border: rgba(255,255,255,0.14);
+    --text: #eaeae6;
+    --muted: #88867f;
+    --mono: Menlo, Consolas, Monaco, 'Liberation Mono', monospace;
   }
 
-  html { scroll-behavior: smooth; }
+  :root[data-theme="light"] {
+    --bg: #ffffff;
+    --surface: #f4f4f2;
+    --border: rgba(0,0,0,0.12);
+    --text: #131311;
+    --muted: #6b6a64;
+  }
 
   body {
     background: var(--bg);
     color: var(--text);
-    font-family: var(--sans);
-    font-weight: 300;
+    font-family: var(--mono);
+    font-weight: 400;
     line-height: 1.7;
-    font-size: 16px;
-    overflow-x: hidden;
+    font-size: 15px;
+    transition: background 0.25s ease, color 0.25s ease;
   }
 
-  /* --- NOISE OVERLAY --- */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 0;
-    opacity: 0.4;
+  a { color: inherit; }
+
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
   }
 
   /* --- NAV --- */
-  nav {
+  .nav-bar {
     position: fixed;
     top: 0;
-    width: 100%;
-    z-index: 100;
-    padding: 1.25rem 2.5rem;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+  }
+
+  nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid var(--border);
-    background: rgba(12,12,11,0.85);
-    backdrop-filter: blur(12px);
-  }
-
-  .nav-brand {
-    font-family: var(--mono);
+    padding: 1.25rem 1.5rem;
+    max-width: 760px;
+    margin: 0 auto;
     font-size: 13px;
-    font-weight: 500;
-    color: var(--accent);
-    letter-spacing: 0.04em;
-    text-decoration: none;
   }
 
-  .nav-links {
-    display: flex;
-    gap: 2rem;
-    list-style: none;
-  }
+  .nav-brand { text-decoration: none; color: var(--text); }
 
-  .nav-links a {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--muted);
-    text-decoration: none;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
+  .nav-links { display: flex; gap: 1.25rem; list-style: none; }
 
+  .nav-links a { text-decoration: none; color: var(--muted); }
   .nav-links a:hover { color: var(--text); }
 
-  /* --- HERO --- */
-  .hero {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    padding: 0 2.5rem 6rem;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .hero-grid-line {
-    position: absolute;
-    top: 0; right: 0;
-    width: 50%;
-    height: 100%;
-    border-left: 1px solid var(--border);
-    pointer-events: none;
-  }
-
-  .hero-grid-line::before {
-    content: '';
-    position: absolute;
-    top: 30%;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .hero-tag {
+  .theme-toggle {
+    background: none;
+    border: none;
     font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--accent);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
+    font-size: 13px;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 0;
   }
 
-  .hero-tag::before {
-    content: '';
-    display: inline-block;
-    width: 20px;
-    height: 1px;
-    background: var(--accent);
-  }
+  .theme-toggle:hover { color: var(--text); }
 
-  .hero-name {
-    font-family: var(--serif);
-    font-size: clamp(3.5rem, 8vw, 7.5rem);
-    line-height: 0.95;
-    font-weight: 400;
+  /* --- SECTIONS --- */
+  section { padding: 3rem 0; scroll-margin-top: 5.5rem; }
+
+  section:first-of-type { padding-top: 6.5rem; }
+
+  .label {
+    font-size: 15px;
+    font-weight: 700;
     color: var(--text);
     margin-bottom: 1.5rem;
-    letter-spacing: -0.02em;
   }
 
-  .hero-name em {
-    font-style: italic;
-    color: var(--accent);
-  }
+  /* --- INTRO --- */
+  .intro-line { max-width: 560px; }
+  .intro-line + .intro-line { margin-top: 0.5rem; }
+  .intro-line.muted { color: var(--muted); }
 
-  .hero-desc {
-    font-size: 1.05rem;
-    color: var(--muted);
-    max-width: 520px;
-    margin-bottom: 3rem;
-    line-height: 1.75;
-    font-weight: 300;
-  }
+  .intro-links { margin-top: 1.5rem; display: flex; gap: 1.25rem; flex-wrap: wrap; }
+  .intro-links a { text-decoration: underline; text-underline-offset: 3px; color: var(--text); }
+  .intro-links a:hover { color: var(--muted); }
 
-  .hero-cta {
+  /* --- ABOUT --- */
+  #about p { max-width: 620px; color: var(--muted); }
+
+  /* --- LIST (Experience / Education) --- */
+  .list { display: flex; flex-direction: column; }
+
+  .row {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
+    align-items: baseline;
     gap: 1.5rem;
-    flex-wrap: wrap;
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 0;
   }
 
-  .btn-primary {
-    font-family: var(--mono);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--bg);
-    background: var(--accent);
-    border: none;
-    padding: 0.85rem 1.75rem;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: background 0.2s, transform 0.15s;
-  }
+  .row:last-child { border-bottom: 1px solid var(--border); }
 
-  .btn-primary:hover { background: var(--accent2); transform: translateY(-1px); }
+  .row-main { flex: 1; }
 
-  .btn-ghost {
-    font-family: var(--mono);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+  .row-title { font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+
+  .row-sub { color: var(--muted); margin-bottom: 0.6rem; }
+
+  .row-desc { color: var(--muted); font-size: 14px; }
+  .row-desc + .row-desc { margin-top: 0.35rem; }
+
+  .row-date {
     color: var(--muted);
-    background: transparent;
-    border: 1px solid var(--border2);
-    padding: 0.85rem 1.75rem;
-    cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
-    transition: color 0.2s, border-color 0.2s;
-  }
-
-  .btn-ghost:hover { color: var(--text); border-color: var(--muted); }
-
-  .hero-meta {
-    position: absolute;
-    right: 2.5rem;
-    bottom: 6rem;
+    white-space: nowrap;
+    font-size: 13px;
     text-align: right;
   }
 
-  .hero-meta-item {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.06em;
-    margin-bottom: 0.35rem;
+  /* --- SELECTED WORK --- */
+  .work-entry + .work-entry { margin-top: 3rem; }
+
+  .work-caption { margin-bottom: 1rem; color: var(--text); }
+  .work-caption .work-date { color: var(--muted); }
+
+  .work-image {
+    aspect-ratio: 16 / 10;
+    border: 1px solid var(--border);
+    background: var(--surface);
   }
 
-  .hero-meta-item span {
-    color: var(--text);
-    font-weight: 500;
-  }
-
-  /* --- SECTIONS --- */
-  section {
-    position: relative;
-    z-index: 1;
-  }
-
-  .section-header {
+  .work-image--empty {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    margin-bottom: 3.5rem;
-  }
-
-  .section-label {
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--accent);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-  }
-
-  .section-line {
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
-
-  .section-num {
-    font-family: var(--mono);
-    font-size: 11px;
+    justify-content: center;
     color: var(--muted);
+    font-size: 13px;
+    border-style: dashed;
   }
 
-  /* --- ABOUT --- */
-  .about {
-    padding: 8rem 2.5rem;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6rem;
-    align-items: start;
-  }
-
-  .about-headline {
-    font-family: var(--serif);
-    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
-    line-height: 1.2;
-    font-weight: 400;
-    color: var(--text);
-    margin-bottom: 2rem;
-  }
-
-  .about-headline em {
-    font-style: italic;
-    color: var(--accent);
-  }
-
-  .about-body {
-    color: var(--muted);
-    font-size: 0.975rem;
-    line-height: 1.85;
-  }
-
-  .about-body p + p { margin-top: 1.25rem; }
-
-  .about-stats {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1px;
-    background: var(--border);
-    border: 1px solid var(--border);
-    margin-top: 0;
-  }
-
-  .stat-cell {
-    background: var(--bg2);
-    padding: 1.75rem;
-  }
-
-  .stat-num {
-    font-family: var(--serif);
-    font-size: 2.75rem;
-    font-weight: 400;
-    color: var(--accent);
-    line-height: 1;
-    margin-bottom: 0.5rem;
-  }
-
-  .stat-label {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    line-height: 1.4;
-  }
-
-  .tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-top: 2rem;
-  }
-
-  .tag {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--muted);
-    border: 1px solid var(--border);
-    padding: 0.4rem 0.75rem;
-    letter-spacing: 0.04em;
-    transition: border-color 0.2s, color 0.2s;
-  }
-
-  .tag:hover { border-color: var(--accent); color: var(--accent); }
-
-  /* --- EXPERIENCE --- */
-  .experience {
-    padding: 6rem 2.5rem 8rem;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .exp-grid {
-    display: grid;
-    gap: 0;
-  }
-
-  .exp-item {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 0;
-    border-top: 1px solid var(--border);
-    padding: 2.75rem 0;
-    transition: background 0.2s;
-    position: relative;
-  }
-
-  .exp-item:hover { background: linear-gradient(90deg, transparent, rgba(201,168,76,0.03), transparent); }
-
-  .exp-left {
-    padding-right: 3rem;
-  }
-
-  .exp-company {
-    font-family: var(--sans);
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--text);
-    margin-bottom: 0.3rem;
-  }
-
-  .exp-location {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.04em;
-    margin-bottom: 0.75rem;
-  }
-
-  .exp-tenure {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 0.04em;
-  }
-
-  .exp-right {}
-
-  .exp-role {
-    font-family: var(--serif);
-    font-size: 1.35rem;
-    font-weight: 400;
-    color: var(--text);
-    margin-bottom: 1rem;
-    line-height: 1.3;
-  }
-
-  .exp-bullets {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-
-  .exp-bullets li {
-    font-size: 0.9rem;
-    color: var(--muted);
-    padding-left: 1.25rem;
-    position: relative;
-    line-height: 1.65;
-  }
-
-  .exp-bullets li::before {
-    content: '→';
-    position: absolute;
-    left: 0;
-    color: var(--accent);
-    font-size: 0.8rem;
-    top: 2px;
-  }
+  .work-entry.is-placeholder .work-caption { color: var(--muted); }
 
   /* --- SKILLS --- */
-  .skills {
-    padding: 6rem 2.5rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    background: var(--bg2);
-    max-width: 100%;
-  }
-
-  .skills-inner {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
   .skills-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1px;
-    background: var(--border);
+    gap: 2rem;
   }
 
-  .skill-group {
-    background: var(--bg2);
-    padding: 2rem 2.25rem;
-  }
+  .skill-group-title { font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
 
-  .skill-group-title {
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 500;
-    color: var(--accent);
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 1.25rem;
-  }
-
-  .skill-list {
-    list-style: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-  }
-
-  .skill-list li {
-    font-size: 0.9rem;
-    color: var(--muted);
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-  }
-
-  .skill-list li::before {
-    content: '';
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
-    background: var(--accent);
-    flex-shrink: 0;
-  }
-
-  /* --- EDUCATION --- */
-  .education {
-    padding: 6rem 2.5rem;
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-
-  .edu-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.5rem;
-  }
-
-  .edu-card {
-    border: 1px solid var(--border);
-    padding: 2rem 2.25rem;
-    background: var(--bg2);
-    transition: border-color 0.25s;
-  }
-
-  .edu-card:hover { border-color: var(--border2); }
-
-  .edu-degree {
-    font-family: var(--serif);
-    font-size: 1.15rem;
-    color: var(--text);
-    margin-bottom: 0.4rem;
-  }
-
-  .edu-school {
-    font-size: 0.9rem;
-    color: var(--muted);
-    margin-bottom: 0.4rem;
-  }
-
-  .edu-year {
-    font-family: var(--mono);
-    font-size: 11px;
-    color: var(--accent);
-    letter-spacing: 0.06em;
-  }
+  .skill-line { color: var(--muted); font-size: 14px; }
 
   /* --- CONTACT --- */
-  .contact {
-    padding: 8rem 2.5rem;
-    text-align: center;
-    border-top: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .contact::before {
-    content: '';
-    position: absolute;
-    bottom: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 600px;
-    height: 600px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(201,168,76,0.06) 0%, transparent 70%);
-    pointer-events: none;
-  }
-
-  .contact-headline {
-    font-family: var(--serif);
-    font-size: clamp(2rem, 5vw, 4.5rem);
-    font-weight: 400;
-    color: var(--text);
-    margin-bottom: 1rem;
-    line-height: 1.1;
-  }
-
-  .contact-headline em {
-    font-style: italic;
-    color: var(--accent);
-  }
-
-  .contact-sub {
-    font-size: 0.95rem;
-    color: var(--muted);
-    max-width: 440px;
-    margin: 0 auto 3rem;
-    line-height: 1.75;
-  }
-
-  .contact-links {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2.5rem;
-    flex-wrap: wrap;
-    margin-bottom: 3rem;
-  }
-
-  .contact-link {
-    font-family: var(--mono);
-    font-size: 12px;
-    color: var(--muted);
-    text-decoration: none;
-    letter-spacing: 0.06em;
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    transition: color 0.2s;
-  }
-
-  .contact-link:hover { color: var(--accent); }
-
-  .contact-link-icon {
-    width: 16px;
-    height: 16px;
-    opacity: 0.6;
-  }
+  #contact p { max-width: 560px; color: var(--muted); }
+  #contact a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
+  #contact a:hover { color: var(--muted); }
 
   /* --- FOOTER --- */
   footer {
     border-top: 1px solid var(--border);
-    padding: 1.5rem 2.5rem;
+    padding: 1.5rem 0 3rem;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-  }
-
-  footer p {
-    font-family: var(--mono);
-    font-size: 11px;
     color: var(--muted);
-    letter-spacing: 0.04em;
+    font-size: 13px;
   }
 
-  /* --- ANIMATIONS --- */
-  .reveal {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* Stagger children */
-  .stagger > * { opacity: 0; transform: translateY(20px); transition: opacity 0.5s ease, transform 0.5s ease; }
-  .stagger.visible > *:nth-child(1) { opacity: 1; transform: none; transition-delay: 0s; }
-  .stagger.visible > *:nth-child(2) { opacity: 1; transform: none; transition-delay: 0.08s; }
-  .stagger.visible > *:nth-child(3) { opacity: 1; transform: none; transition-delay: 0.16s; }
-  .stagger.visible > *:nth-child(4) { opacity: 1; transform: none; transition-delay: 0.24s; }
-  .stagger.visible > *:nth-child(5) { opacity: 1; transform: none; transition-delay: 0.32s; }
-  .stagger.visible > *:nth-child(6) { opacity: 1; transform: none; transition-delay: 0.4s; }
-
-  /* Hero entrance */
-  .hero-tag { animation: fadeUp 0.8s 0.2s both ease; }
-  .hero-name { animation: fadeUp 0.9s 0.35s both ease; }
-  .hero-desc { animation: fadeUp 0.8s 0.5s both ease; }
-  .hero-cta { animation: fadeUp 0.8s 0.65s both ease; }
-  .hero-meta { animation: fadeIn 1s 0.9s both ease; }
-
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(28px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
+  /* --- REVEAL --- */
+  .reveal { opacity: 0; transform: translateY(12px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 
   /* --- RESPONSIVE --- */
-  @media (max-width: 800px) {
-    nav { padding: 1rem 1.5rem; }
-    .nav-links { display: none; }
-    .hero { padding: 0 1.5rem 4rem; }
-    .hero-meta { display: none; }
-    .about { padding: 5rem 1.5rem; }
-    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .experience { padding: 4rem 1.5rem; }
-    .exp-item { grid-template-columns: 1fr; }
-    .exp-left { padding-right: 0; padding-bottom: 1rem; }
-    .skills { padding: 4rem 1.5rem; }
-    .skills-grid { grid-template-columns: 1fr; }
-    .education { padding: 4rem 1.5rem; }
-    .edu-grid { grid-template-columns: 1fr; }
-    .contact { padding: 5rem 1.5rem; }
-    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.25rem; font-size: 11.5px; flex-wrap: wrap; row-gap: 0.6rem; }
+    .nav-brand { flex: 1 0 100%; }
+    .nav-links { gap: 0.85rem; }
+    main { padding: 0 1.25rem; }
+    section:first-of-type { padding-top: 5.5rem; }
+    .row { flex-direction: column; align-items: flex-start; gap: 0.35rem; }
+    .row-date { text-align: left; }
+    .skills-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    footer { flex-direction: column; gap: 0.4rem; }
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav>
-  <a class="nav-brand" href="#">mihir abnave</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#experience">Work</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-</nav>
-
-<!-- HERO -->
-<section class="hero" id="home">
-  <div class="hero-grid-line"></div>
-
-  <div class="hero-tag">Principal Product Designer</div>
-
-  <h1 class="hero-name">
-    Mihir<br><em>Abnave</em>
-  </h1>
-
-  <p class="hero-desc">
-    9+ years building B2B SaaS products at the intersection of developer experience, auth infrastructure, and agentic AI. Currently founding designer at Scalekit.
-  </p>
-
-  <div class="hero-cta">
-    <a class="btn-primary" href="mailto:mabnuxr@gmail.com">Get in touch</a>
-    <a class="btn-ghost" href="https://linkedin.com/in/mihirabn" target="_blank">LinkedIn ↗</a>
-  </div>
-
-  <div class="hero-meta">
-    <div class="hero-meta-item">Location <span>Bengaluru, India</span></div>
-    <div class="hero-meta-item">Availability <span>Open to roles</span></div>
-    <div class="hero-meta-item">Focus <span>Principal / Staff</span></div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section class="about" id="about">
-  <div class="section-header reveal">
-    <span class="section-label">About</span>
-    <div class="section-line"></div>
-    <span class="section-num">01</span>
-  </div>
-
-  <div class="about-grid">
-    <div class="reveal">
-      <h2 class="about-headline">
-        Design meets<br><em>infrastructure.</em>
-      </h2>
-      <div class="about-body">
-        <p>I design complex enterprise products — authentication systems, developer platforms, and AI-native interfaces — where technical depth and UX clarity have to coexist.</p>
-        <p>I operate as a PM/design hybrid: owning strategy, running research, and contributing to product direction alongside engineering and GTM. I've built design systems from scratch, grown and led design teams, and shipped 0→1 across multiple product lines.</p>
-        <p>My current domain is identity and agent authentication — making sure the right entities, human and non-human, have the right access, with full visibility for the teams responsible.</p>
-      </div>
-      <div class="tags">
-        <span class="tag">Product Design</span>
-        <span class="tag">UX Research</span>
-        <span class="tag">Developer Experience</span>
-        <span class="tag">Agentic AI</span>
-        <span class="tag">Design Systems</span>
-        <span class="tag">PM / PD Hybrid</span>
-        <span class="tag">Team Leadership</span>
-        <span class="tag">IAM / Auth</span>
-      </div>
-    </div>
-
-    <div class="about-stats stagger">
-      <div class="stat-cell">
-        <div class="stat-num">9+</div>
-        <div class="stat-label">Years in B2B<br>SaaS Design</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num">6</div>
-        <div class="stat-label">Designers<br>Led & Managed</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num">3</div>
-        <div class="stat-label">0→1 Product<br>Lines Shipped</div>
-      </div>
-      <div class="stat-cell">
-        <div class="stat-num">US+IN</div>
-        <div class="stat-label">Cross-market<br>Experience</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- EXPERIENCE -->
-<section class="experience" id="experience">
-  <div class="section-header reveal">
-    <span class="section-label">Experience</span>
-    <div class="section-line"></div>
-    <span class="section-num">02</span>
-  </div>
-
-  <div class="exp-grid">
-
-    <div class="exp-item reveal">
-      <div class="exp-left">
-        <div class="exp-company">Scalekit</div>
-        <div class="exp-location">Bengaluru, India</div>
-        <div class="exp-tenure">Jan 2024 – Present</div>
-      </div>
-      <div class="exp-right">
-        <h3 class="exp-role">Founding Designer</h3>
-        <ul class="exp-bullets">
-          <li>Sole design owner across the entire developer platform — auth infrastructure for teams building AI agents and MCP integrations</li>
-          <li>Led product thinking on Agent Auth quickstart, including AI-assisted setup paths for Claude Code, Cursor, and GitHub Copilot</li>
-          <li>Designed SAML/OIDC-based SSO and SCIM provisioning flows, MCP gateway tooling, and OAuth 2.0 token lifecycle interfaces</li>
-          <li>Built and own the Figma component library used across all product surfaces</li>
-          <li>Operated as PM/design hybrid — strategy, research, and cross-functional collaboration with engineering and GTM</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="exp-item reveal">
-      <div class="exp-left">
-        <div class="exp-company">BetterPlace</div>
-        <div class="exp-location">Bengaluru, India</div>
-        <div class="exp-tenure">May 2023 – Dec 2023</div>
-      </div>
-      <div class="exp-right">
-        <h3 class="exp-role">Principal Product Designer</h3>
-        <ul class="exp-bullets">
-          <li>Designed end-to-end solutions for frontline workforce management — attendance, payroll, and gig worker tooling</li>
-          <li>Led on-ground field research at Zepto and Blinkit dark stores; tackled user management and RBAC challenges</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="exp-item reveal">
-      <div class="exp-left">
-        <div class="exp-company">Leena AI</div>
-        <div class="exp-location">Remote</div>
-        <div class="exp-tenure">Mar 2021 – Feb 2023</div>
-      </div>
-      <div class="exp-right">
-        <h3 class="exp-role">Principal / Lead Product Designer</h3>
-        <ul class="exp-bullets">
-          <li>Defined product vision, built a comprehensive design system, grew and managed a team of 6 designers</li>
-          <li>Led 0→1 research and design for three major product lines: Employee Engagement, Analytics, and Document Management with Generative AI</li>
-          <li>Partnered with Sales and Marketing to align design with go-to-market strategies across multiple launches</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="exp-item reveal">
-      <div class="exp-left">
-        <div class="exp-company">COUNTRY Financial</div>
-        <div class="exp-location">Atlanta, US</div>
-        <div class="exp-tenure">Mar 2018 – Aug 2020</div>
-      </div>
-      <div class="exp-right">
-        <h3 class="exp-role">Senior UX Researcher</h3>
-        <ul class="exp-bullets">
-          <li>Led research and usability testing to optimise enterprise insurance tools, improving policy-writing workflows</li>
-          <li>Designed and executed research studies to uncover user needs; facilitated workshops to align features with goals</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="exp-item reveal">
-      <div class="exp-left">
-        <div class="exp-company">Wayfair</div>
-        <div class="exp-location">Boston, US</div>
-        <div class="exp-tenure">Jul 2017 – Jun 2018</div>
-      </div>
-      <div class="exp-right">
-        <h3 class="exp-role">Product Designer</h3>
-        <ul class="exp-bullets">
-          <li>Designed customer-facing and service agent applications for call and chat channels</li>
-          <li>Pioneered AR-based solutions for product discovery; improved user account and help centre experiences</li>
-        </ul>
-      </div>
-    </div>
-
-    <div class="exp-item reveal">
-      <div class="exp-left">
-        <div class="exp-company">Prysm Inc.</div>
-        <div class="exp-location">Indianapolis, US</div>
-        <div class="exp-tenure">Jul 2016 – Jul 2017</div>
-      </div>
-      <div class="exp-right">
-        <h3 class="exp-role">UX Specialist</h3>
-        <ul class="exp-bullets">
-          <li>Led user research and usability testing for large-screen collaborative display products</li>
-          <li>Produced wireframes and informed design decisions in fast-paced agile development cycles</li>
-        </ul>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- SKILLS -->
-<div class="skills" id="skills">
-  <div class="skills-inner">
-    <div class="section-header reveal">
-      <span class="section-label">Skills</span>
-      <div class="section-line"></div>
-      <span class="section-num">03</span>
-    </div>
-
-    <div class="skills-grid stagger">
-      <div class="skill-group">
-        <div class="skill-group-title">Design & Research</div>
-        <ul class="skill-list">
-          <li>Product Design (0→1 & mature)</li>
-          <li>UX Research & Usability Testing</li>
-          <li>Design Systems & Figma</li>
-          <li>Information Architecture</li>
-          <li>Interaction Design</li>
-          <li>Workshop Facilitation</li>
-        </ul>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-title">Product & Strategy</div>
-        <ul class="skill-list">
-          <li>PM / PD Hybrid Operating</li>
-          <li>Product Strategy & Roadmapping</li>
-          <li>Developer Experience (DX)</li>
-          <li>Go-to-Market Alignment</li>
-          <li>Cross-functional Leadership</li>
-          <li>Design Team Management</li>
-        </ul>
-      </div>
-      <div class="skill-group">
-        <div class="skill-group-title">Domain Expertise</div>
-        <ul class="skill-list">
-          <li>Agentic AI & MCP Interfaces</li>
-          <li>IAM / Auth Infrastructure</li>
-          <li>Enterprise SSO & SCIM</li>
-          <li>OAuth 2.0 & Token Management</li>
-          <li>B2B SaaS & Infra Products</li>
-          <li>Audit & Security Tooling</li>
-        </ul>
-      </div>
-    </div>
-  </div>
+<div class="nav-bar">
+  <nav>
+    <a class="nav-brand" href="#">Mihir Abnave</a>
+    <ul class="nav-links">
+      <li><a href="#work">Work</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">Light</button></li>
+    </ul>
+  </nav>
 </div>
 
-<!-- EDUCATION -->
-<section class="education" id="education">
-  <div class="section-header reveal">
-    <span class="section-label">Education</span>
-    <div class="section-line"></div>
-    <span class="section-num">04</span>
-  </div>
+<main>
 
-  <div class="edu-grid stagger">
-    <div class="edu-card">
-      <div class="edu-degree">MS Human–Computer Interaction</div>
-      <div class="edu-school">Indiana University Indianapolis, USA</div>
-      <div class="edu-year">2015 – 2017</div>
+  <!-- INTRO -->
+  <section id="home">
+    <p class="intro-line"><strong>Mihir Abnave</strong> is a product designer based in Bengaluru, India.</p>
+    <p class="intro-line muted">Currently founding designer at Scalekit, designing auth infrastructure for AI agents and MCP integrations.</p>
+    <div class="intro-links">
+      <a href="mailto:mabnuxr@gmail.com">mabnuxr@gmail.com</a>
+      <a href="https://linkedin.com/in/mihirabn" target="_blank">LinkedIn ↗</a>
     </div>
-    <div class="edu-card">
-      <div class="edu-degree">BE Computer Engineering</div>
-      <div class="edu-school">Maharashtra Institute of Technology, Pune</div>
-      <div class="edu-year">2009 – 2013</div>
+  </section>
+
+  <!-- SELECTED WORK -->
+  <section id="work" class="reveal">
+    <h2 class="label">Selected Work</h2>
+
+    <div class="work-entry">
+      <p class="work-caption"><span class="work-date">2024 —</span> Founding Designer, Scalekit. Agent auth infrastructure, from the ground up.</p>
+      <div class="work-image"><!-- Replace with real product screenshot/mockup --></div>
     </div>
-  </div>
-</section>
 
-<!-- CONTACT -->
-<section class="contact" id="contact">
-  <h2 class="contact-headline reveal">
-    Let's build<br><em>something real.</em>
-  </h2>
-  <p class="contact-sub reveal">
-    Open to principal and staff-level design roles where ownership meets product thinking. Happy to walk through work and thinking on a call.
-  </p>
+    <div class="work-entry">
+      <p class="work-caption"><span class="work-date">2026 —</span> Contract Product Designer, VON (Rattle Software). Access control for an AI-native RevOps platform.</p>
+      <div class="work-image"><!-- Replace with real product screenshot/mockup --></div>
+    </div>
 
-  <div class="contact-links reveal">
-    <a class="contact-link" href="mailto:mabnuxr@gmail.com">
-      <svg class="contact-link-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-        <rect x="1" y="3" width="14" height="10" rx="1.5"/>
-        <path d="M1 4l7 5 7-5"/>
-      </svg>
-      mabnuxr@gmail.com
-    </a>
-    <a class="contact-link" href="tel:+917709764447">
-      <svg class="contact-link-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5">
-        <path d="M3 2h3l1.5 3.5-1.75 1A9 9 0 008.5 9.25l1-1.75L13 9v3a1 1 0 01-1 1A11 11 0 012 3a1 1 0 011-1z"/>
-      </svg>
-      +91 7709764447
-    </a>
-    <a class="contact-link" href="https://linkedin.com/in/mihirabn" target="_blank">
-      <svg class="contact-link-icon" viewBox="0 0 16 16" fill="currentColor">
-        <path d="M0 1.146C0 .513.526 0 1.175 0h13.65C15.474 0 16 .513 16 1.146v13.708c0 .633-.526 1.146-1.175 1.146H1.175C.526 16 0 15.487 0 14.854V1.146zm4.943 12.248V6.169H2.542v7.225h2.401zm-1.2-8.212c.837 0 1.358-.554 1.358-1.248-.015-.709-.52-1.248-1.342-1.248-.822 0-1.359.54-1.359 1.248 0 .694.521 1.248 1.327 1.248h.016zm4.908 8.212V9.359c0-.216.016-.432.08-.586.173-.431.568-.878 1.232-.878.869 0 1.216.662 1.216 1.634v3.865h2.401V9.25c0-2.22-1.184-3.252-2.764-3.252-1.274 0-1.845.7-2.165 1.193v.025h-.016a5.54 5.54 0 01.016-.025V6.169h-2.4c.03.678 0 7.225 0 7.225h2.4z"/>
-      </svg>
-      linkedin.com/in/mihirabn
-    </a>
-  </div>
+    <div class="work-entry is-placeholder">
+      <p class="work-caption"><span class="work-date">In progress —</span> a side project, coming soon.</p>
+      <div class="work-image work-image--empty">More coming soon</div>
+    </div>
+  </section>
 
-  <a class="btn-primary" href="mailto:mabnuxr@gmail.com">Send a message →</a>
-</section>
+  <!-- ABOUT -->
+  <section id="about" class="reveal">
+    <h2 class="label">About</h2>
+    <p>I design complex enterprise products — authentication systems, developer platforms, and AI-native interfaces — where technical depth and UX clarity have to coexist. I operate as a PM/design hybrid: I've built design systems from scratch, led a team of 6 designers, and shipped 0→1 across multiple product lines in the US and India over 9+ years.</p>
+  </section>
 
-<!-- FOOTER -->
+  <!-- EXPERIENCE -->
+  <section id="experience" class="reveal">
+    <h2 class="label">Experience</h2>
+    <div class="list">
+
+      <div class="row">
+        <div class="row-main">
+          <div class="row-title">Scalekit</div>
+          <div class="row-sub">Founding Designer · Bengaluru, India</div>
+          <div class="row-desc">Sole design owner across the developer platform — SSO, SCIM, and OAuth 2.0 token interfaces for AI agent auth.</div>
+          <div class="row-desc">Built and own the Figma component library used across every product surface.</div>
+        </div>
+        <div class="row-date">Jan 2024 – Present</div>
+      </div>
+
+      <div class="row">
+        <div class="row-main">
+          <div class="row-title">VON (Rattle Software)</div>
+          <div class="row-sub">Contract Product Designer · Remote</div>
+          <div class="row-desc">Designed the full access and permissions model for an AI-native RevOps platform — roles, license tiers, and integration scoping.</div>
+        </div>
+        <div class="row-date">May – Jun 2026</div>
+      </div>
+
+      <div class="row">
+        <div class="row-main">
+          <div class="row-title">BetterPlace</div>
+          <div class="row-sub">Principal Product Designer · Bengaluru, India</div>
+          <div class="row-desc">Designed frontline workforce management tooling — attendance, payroll, and gig worker RBAC.</div>
+        </div>
+        <div class="row-date">May – Dec 2023</div>
+      </div>
+
+      <div class="row">
+        <div class="row-main">
+          <div class="row-title">Leena AI</div>
+          <div class="row-sub">Principal / Lead Product Designer · Remote</div>
+          <div class="row-desc">Built a design system and led a team of 6 across three 0→1 product lines, including a generative-AI document product.</div>
+        </div>
+        <div class="row-date">Mar 2021 – Feb 2023</div>
+      </div>
+
+      <div class="row">
+        <div class="row-main">
+          <div class="row-title">COUNTRY Financial</div>
+          <div class="row-sub">Senior UX Researcher · Atlanta, US</div>
+          <div class="row-desc">Led research and usability testing to optimise enterprise insurance policy-writing workflows.</div>
+        </div>
+        <div class="row-date">Mar 2018 – Aug 2020</div>
+      </div>
+
+      <div class="row">
+        <div class="row-main">
+          <div class="row-title">Wayfair</div>
+          <div class="row-sub">Product Designer · Boston, US</div>
+          <div class="row-desc">Designed customer and agent-facing call/chat tooling; pioneered AR-based product discovery.</div>
+        </div>
+        <div class="row-date">Jul 2017 – Jun 2018</div>
+      </div>
+
+      <div class="row">
+        <div class="row-main">
+          <div class="row-title">Prysm Inc.</div>
+          <div class="row-sub">UX Specialist · Indianapolis, US</div>
+          <div class="row-desc">Led research and usability testing for large-screen collaborative display products.</div>
+        </div>
+        <div class="row-date">Jul 2016 – Jul 2017</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" class="reveal">
+    <h2 class="label">Education</h2>
+    <div class="list">
+      <div class="row">
+        <div class="row-main">
+          <div class="row-title">MS Human–Computer Interaction</div>
+          <div class="row-sub">Indiana University Indianapolis, USA</div>
+        </div>
+        <div class="row-date">2015 – 2017</div>
+      </div>
+      <div class="row">
+        <div class="row-main">
+          <div class="row-title">BE Computer Engineering</div>
+          <div class="row-sub">Maharashtra Institute of Technology, Pune</div>
+        </div>
+        <div class="row-date">2009 – 2013</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="reveal">
+    <h2 class="label">Skills</h2>
+    <div class="skills-grid">
+      <div>
+        <div class="skill-group-title">Design & Research</div>
+        <p class="skill-line">Product Design, UX Research, Design Systems, Information Architecture, Interaction Design, Workshop Facilitation</p>
+      </div>
+      <div>
+        <div class="skill-group-title">Product & Strategy</div>
+        <p class="skill-line">PM/PD Hybrid Operating, Product Strategy, Developer Experience, Go-to-Market Alignment, Design Team Management</p>
+      </div>
+      <div>
+        <div class="skill-group-title">Domain Expertise</div>
+        <p class="skill-line">Agentic AI & MCP, IAM/Auth Infrastructure, Enterprise SSO & SCIM, OAuth 2.0, B2B SaaS, Audit & Security Tooling</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="reveal">
+    <h2 class="label">Contact</h2>
+    <p>Open to principal and staff-level design roles where ownership meets product thinking. Reach me at <a href="mailto:mabnuxr@gmail.com">mabnuxr@gmail.com</a>, <a href="tel:+917709764447">+91 7709764447</a>, or on <a href="https://linkedin.com/in/mihirabn" target="_blank">LinkedIn ↗</a>.</p>
+  </section>
+
+</main>
+
 <footer>
-  <p>© 2025 Mihir Abnave</p>
-  <p>Bengaluru, India · mabnuxr@gmail.com</p>
+  <div style="max-width:760px; margin:0 auto; width:100%; display:flex; justify-content:space-between; padding:0 1.5rem;">
+    <p>© 2026 Mihir Abnave</p>
+    <p>Bengaluru, India</p>
+  </div>
 </footer>
 
 <script>
+// Theme toggle
+const themeToggle = document.getElementById('themeToggle');
+const root = document.documentElement;
+
+function applyTheme(theme) {
+  if (theme === 'light') {
+    root.setAttribute('data-theme', 'light');
+    themeToggle.textContent = 'Dark';
+  } else {
+    root.removeAttribute('data-theme');
+    themeToggle.textContent = 'Light';
+  }
+}
+
+let savedTheme = null;
+try { savedTheme = localStorage.getItem('theme'); } catch (e) {}
+applyTheme(savedTheme === 'light' ? 'light' : 'dark');
+
+themeToggle.addEventListener('click', () => {
+  const isLight = root.getAttribute('data-theme') === 'light';
+  const next = isLight ? 'dark' : 'light';
+  applyTheme(next);
+  try { localStorage.setItem('theme', next); } catch (e) {}
+});
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.classList.add('visible');
-    }
+    if (e.isIntersecting) e.target.classList.add('visible');
   });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.reveal, .stagger').forEach(el => observer.observe(el));
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+document.querySelectorAll('a[href^="#"]').forEach(link => {
+  link.addEventListener('click', (e) => {
+    const id = link.getAttribute('href');
+    const target = document.querySelector(id);
+    if (!target) return;
+    e.preventDefault();
+    const navOffset = document.querySelector('.nav-bar').getBoundingClientRect().height + 16;
+    const startY = window.scrollY;
+    const endY = target.getBoundingClientRect().top + window.scrollY - navOffset;
+    const distance = endY - startY;
+    const duration = Math.min(1200, Math.max(400, Math.abs(distance) * 0.6));
+    const startTime = performance.now();
+
+    function easeInOutQuint(t) {
+      return t < 0.5 ? 16 * t * t * t * t * t : 1 - Math.pow(-2 * t + 2, 5) / 2;
+    }
+
+    function step(now) {
+      const elapsed = now - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      window.scrollTo(0, startY + distance * easeInOutQuint(progress));
+      if (progress < 1) requestAnimationFrame(step);
+    }
+
+    requestAnimationFrame(step);
+  });
+});
 </script>
 
 </body>
