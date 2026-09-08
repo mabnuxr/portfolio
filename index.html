@@ -51,35 +51,12 @@
     padding: 0 1.5rem;
   }
 
-  /* --- NAV --- */
-  .nav-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 10;
-    background: var(--bg);
-    border-bottom: 1px solid var(--border);
-  }
-
-  nav {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1.25rem 1.5rem;
-    max-width: 760px;
-    margin: 0 auto;
-    font-size: 13px;
-  }
-
-  .nav-brand { text-decoration: none; color: var(--text); }
-
-  .nav-links { display: flex; gap: 1.25rem; list-style: none; }
-
-  .nav-links a { text-decoration: none; color: var(--muted); }
-  .nav-links a:hover { color: var(--text); }
-
+  /* --- THEME TOGGLE --- */
   .theme-toggle {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 10;
     background: none;
     border: none;
     font-family: var(--mono);
@@ -92,9 +69,9 @@
   .theme-toggle:hover { color: var(--text); }
 
   /* --- SECTIONS --- */
-  section { padding: 3rem 0; scroll-margin-top: 5.5rem; }
+  section { padding: 3rem 0; }
 
-  section:first-of-type { padding-top: 6.5rem; }
+  section:first-of-type { padding-top: 4rem; }
 
   .label {
     font-size: 15px;
@@ -209,11 +186,9 @@
 
   /* --- RESPONSIVE --- */
   @media (max-width: 640px) {
-    nav { padding: 1rem 1.25rem; font-size: 11.5px; flex-wrap: wrap; row-gap: 0.6rem; }
-    .nav-brand { flex: 1 0 100%; }
-    .nav-links { gap: 0.85rem; }
+    .theme-toggle { top: 1.1rem; right: 1.25rem; font-size: 11.5px; }
     main { padding: 0 1.25rem; }
-    section:first-of-type { padding-top: 5.5rem; }
+    section:first-of-type { padding-top: 3.5rem; }
     .row { flex-direction: column; align-items: flex-start; gap: 0.35rem; }
     .row-date { text-align: left; }
     .skills-grid { grid-template-columns: 1fr; gap: 1.5rem; }
@@ -223,18 +198,7 @@
 </head>
 <body>
 
-<div class="nav-bar">
-  <nav>
-    <a class="nav-brand" href="#">Mihir Abnave</a>
-    <ul class="nav-links">
-      <li><a href="#work">Work</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#contact">Contact</a></li>
-      <li><button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">Light</button></li>
-    </ul>
-  </nav>
-</div>
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">Light</button>
 
 <main>
 
@@ -436,34 +400,6 @@ const observer = new IntersectionObserver((entries) => {
 }, { threshold: 0.1 });
 
 document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-document.querySelectorAll('a[href^="#"]').forEach(link => {
-  link.addEventListener('click', (e) => {
-    const id = link.getAttribute('href');
-    const target = document.querySelector(id);
-    if (!target) return;
-    e.preventDefault();
-    const navOffset = document.querySelector('.nav-bar').getBoundingClientRect().height + 16;
-    const startY = window.scrollY;
-    const endY = target.getBoundingClientRect().top + window.scrollY - navOffset;
-    const distance = endY - startY;
-    const duration = Math.min(1200, Math.max(400, Math.abs(distance) * 0.6));
-    const startTime = performance.now();
-
-    function easeInOutQuint(t) {
-      return t < 0.5 ? 16 * t * t * t * t * t : 1 - Math.pow(-2 * t + 2, 5) / 2;
-    }
-
-    function step(now) {
-      const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-      window.scrollTo(0, startY + distance * easeInOutQuint(progress));
-      if (progress < 1) requestAnimationFrame(step);
-    }
-
-    requestAnimationFrame(step);
-  });
-});
 </script>
 
 </body>
