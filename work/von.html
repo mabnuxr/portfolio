@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VON — Case Study — Mihir Abnave</title>
+<script>
+(function () {
+  try {
+    if (localStorage.getItem('theme') === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  } catch (e) {}
+})();
+</script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #000000;
+    --surface: #0a0a0a;
+    --border: rgba(255,255,255,0.14);
+    --text: #eaeae6;
+    --muted: #88867f;
+    --mono: Menlo, Consolas, Monaco, 'Liberation Mono', monospace;
+  }
+
+  :root[data-theme="light"] {
+    --bg: #ffffff;
+    --surface: #f4f4f2;
+    --border: rgba(0,0,0,0.12);
+    --text: #131311;
+    --muted: #6b6a64;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    font-weight: 400;
+    line-height: 1.7;
+    font-size: 15px;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+
+  a { color: inherit; }
+
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* --- THEME TOGGLE --- */
+  .theme-toggle {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 10;
+    background: none;
+    border: none;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .theme-toggle:hover { color: var(--text); }
+
+  /* --- BREADCRUMB --- */
+  .back-link {
+    display: inline-block;
+    margin: 4rem 0 2.5rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+  }
+
+  .back-link:hover { color: var(--text); }
+
+  /* --- SECTIONS --- */
+  section { padding: 2.25rem 0; border-top: 1px solid var(--border); }
+
+  .label {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+  }
+
+  section p, section .cs-list { max-width: 620px; color: var(--muted); }
+
+  /* --- CASE STUDY HEADER --- */
+  .cs-head { padding-bottom: 2.25rem; }
+
+  .cs-eyebrow {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .cs-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .cs-role { color: var(--muted); margin-top: 0.25rem; }
+
+  .cs-dek { color: var(--text); margin-top: 1rem; max-width: 560px; }
+
+  .cs-live-link {
+    display: inline-block;
+    margin-top: 1.25rem;
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-size: 14px;
+  }
+
+  .cs-live-link:hover { color: var(--muted); }
+
+  /* --- LIST --- */
+  .cs-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 14px;
+  }
+
+  .cs-list li { padding-left: 1.1rem; position: relative; }
+  .cs-list li::before { content: "–"; position: absolute; left: 0; }
+
+  /* --- TAGS --- */
+  .cs-tags { color: var(--muted); font-size: 14px; }
+
+  /* --- NDA NOTE --- */
+  .cs-nda p { font-size: 13px; }
+
+  /* --- FOOTER --- */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 0 3rem;
+    display: flex;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 13px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 640px) {
+    .theme-toggle { top: 1.1rem; right: 1.25rem; font-size: 11.5px; }
+    main, footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .back-link { margin: 3.5rem 0 2rem; }
+    footer { flex-direction: column; gap: 0.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">Light</button>
+
+<main>
+
+  <a class="back-link" href="../index.html">← Back to home</a>
+
+  <header class="cs-head">
+    <div class="cs-eyebrow">Case Study</div>
+    <h1 class="cs-title">VON</h1>
+    <p class="cs-role">Contract Product Designer</p>
+    <p class="cs-dek">Access control for an AI-native RevOps platform.</p>
+    <a class="cs-live-link" href="https://vonlabs.ai" target="_blank" rel="noopener">vonlabs.ai ↗</a>
+  </header>
+
+  <section>
+    <h2 class="label">Context</h2>
+    <p>VON lets revenue teams query CRM data, calls, and pipeline in natural language — an AI-native platform built on Claude Code and MCP-native throughout. VON's platform was built on top of Scalekit's auth infrastructure, which I had designed, and that connection is part of why I was brought in: to solve the platform's access-control gap.</p>
+    <p style="margin-top: 0.9rem;">Unlike Scalekit, this wasn't a 0-to-1 project. VON already had a live product and an existing (if minimal) permissions system I had to design around and extend, not replace wholesale.</p>
+  </section>
+
+  <section>
+    <h2 class="label">The Problem</h2>
+    <p>VON shipped with only two roles — admin and member — and no granular permissions, team-level access, or sharing model. As the customer base grew, that flat model stopped holding: enterprise buyers expected role-based access, license tiers, and control over who could see or act on what. The challenge was designing a full access model on top of a live product, without a rewrite and without disrupting customers already using it.</p>
+  </section>
+
+  <section>
+    <h2 class="label">What I Owned</h2>
+    <ul class="cs-list">
+      <li>Roles and license tiers</li>
+      <li>Object-level and inherited permissions</li>
+      <li>Team-level access</li>
+      <li>Integration-level scoping</li>
+      <li>A unified sharing experience used across the app</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="label">Approach</h2>
+    <p>I benchmarked against Notion, Linear, Salesforce, Figma, and Slack to understand how mature products handle the same tradeoffs — hierarchy, inheritance, and where team-level access ends and object-level access begins — then designed within VON's existing live Storybook/Tailwind/shadcn system rather than in a Figma-only flow disconnected from the product. I worked directly with the founder/CEO and engineering leadership at a high production-fidelity bar, covering empty and error states, not just the happy path.</p>
+  </section>
+
+  <section>
+    <h2 class="label">Why It Matters</h2>
+    <p>VON is an AI-native product where agents and humans both act on customer data — which makes the access model the same trust boundary I care about generally, just from the human-permissions side rather than the agent-identity side I worked on at Scalekit. Getting that boundary right — who can see what, and how access is scoped and shared — is what let VON credibly sell into enterprise accounts.</p>
+  </section>
+
+  <section>
+    <h2 class="label">Tools</h2>
+    <p class="cs-tags">Figma · Storybook · Tailwind · shadcn/ui · Design Systems</p>
+  </section>
+
+  <section class="cs-nda">
+    <p>Specifics beyond what's here are under NDA — happy to walk through the details in a conversation.</p>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 Mihir Abnave</p>
+  <p>Bengaluru, India</p>
+</footer>
+
+<script>
+const themeToggle = document.getElementById('themeToggle');
+const root = document.documentElement;
+
+function applyTheme(theme) {
+  if (theme === 'light') {
+    root.setAttribute('data-theme', 'light');
+    themeToggle.textContent = 'Dark';
+  } else {
+    root.removeAttribute('data-theme');
+    themeToggle.textContent = 'Light';
+  }
+}
+
+let savedTheme = null;
+try { savedTheme = localStorage.getItem('theme'); } catch (e) {}
+applyTheme(savedTheme === 'light' ? 'light' : 'dark');
+
+themeToggle.addEventListener('click', () => {
+  const isLight = root.getAttribute('data-theme') === 'light';
+  const next = isLight ? 'dark' : 'light';
+  applyTheme(next);
+  try { localStorage.setItem('theme', next); } catch (e) {}
+});
+</script>
+
+</body>
+</html>
