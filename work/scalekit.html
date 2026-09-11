@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Scalekit — Case Study — Mihir Abnave</title>
+<script>
+(function () {
+  try {
+    if (localStorage.getItem('theme') === 'light') {
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
+  } catch (e) {}
+})();
+</script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #000000;
+    --surface: #0a0a0a;
+    --border: rgba(255,255,255,0.14);
+    --text: #eaeae6;
+    --muted: #88867f;
+    --mono: Menlo, Consolas, Monaco, 'Liberation Mono', monospace;
+  }
+
+  :root[data-theme="light"] {
+    --bg: #ffffff;
+    --surface: #f4f4f2;
+    --border: rgba(0,0,0,0.12);
+    --text: #131311;
+    --muted: #6b6a64;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--mono);
+    font-weight: 400;
+    line-height: 1.7;
+    font-size: 15px;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+
+  a { color: inherit; }
+
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* --- THEME TOGGLE --- */
+  .theme-toggle {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    z-index: 10;
+    background: none;
+    border: none;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--muted);
+    cursor: pointer;
+    padding: 0;
+  }
+
+  .theme-toggle:hover { color: var(--text); }
+
+  /* --- BREADCRUMB --- */
+  .back-link {
+    display: inline-block;
+    margin: 4rem 0 2.5rem;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 13px;
+  }
+
+  .back-link:hover { color: var(--text); }
+
+  /* --- SECTIONS --- */
+  section { padding: 2.25rem 0; border-top: 1px solid var(--border); }
+
+  .label {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+  }
+
+  section p, section .cs-list { max-width: 620px; color: var(--muted); }
+
+  /* --- CASE STUDY HEADER --- */
+  .cs-head { padding-bottom: 2.25rem; }
+
+  .cs-eyebrow {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+
+  .cs-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .cs-role { color: var(--muted); margin-top: 0.25rem; }
+
+  .cs-dek { color: var(--text); margin-top: 1rem; max-width: 560px; }
+
+  .cs-live-link {
+    display: inline-block;
+    margin-top: 1.25rem;
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-size: 14px;
+  }
+
+  .cs-live-link:hover { color: var(--muted); }
+
+  /* --- LIST --- */
+  .cs-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 14px;
+  }
+
+  .cs-list li { padding-left: 1.1rem; position: relative; }
+  .cs-list li::before { content: "–"; position: absolute; left: 0; }
+
+  /* --- TAGS --- */
+  .cs-tags { color: var(--muted); font-size: 14px; }
+
+  /* --- NDA NOTE --- */
+  .cs-nda p { font-size: 13px; }
+
+  /* --- FOOTER --- */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 0 3rem;
+    display: flex;
+    justify-content: space-between;
+    color: var(--muted);
+    font-size: 13px;
+    max-width: 760px;
+    margin: 0 auto;
+  }
+
+  /* --- RESPONSIVE --- */
+  @media (max-width: 640px) {
+    .theme-toggle { top: 1.1rem; right: 1.25rem; font-size: 11.5px; }
+    main, footer { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .back-link { margin: 3.5rem 0 2rem; }
+    footer { flex-direction: column; gap: 0.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">Light</button>
+
+<main>
+
+  <a class="back-link" href="../index.html">← Back to home</a>
+
+  <header class="cs-head">
+    <div class="cs-eyebrow">Case Study</div>
+    <h1 class="cs-title">Scalekit</h1>
+    <p class="cs-role">Founding Designer</p>
+    <p class="cs-dek">Agent auth infrastructure, from the ground up.</p>
+    <a class="cs-live-link" href="https://scalekit.com" target="_blank" rel="noopener">scalekit.com ↗</a>
+  </header>
+
+  <section>
+    <h2 class="label">Context</h2>
+    <p>Scalekit is a developer platform providing auth infrastructure for teams building AI agents and MCP integrations — SSO, SCIM provisioning, and OAuth 2.0 token lifecycle management, aimed at making agent identity and access as rigorous as human identity and access.</p>
+    <p style="margin-top: 0.9rem;">I joined as the founding designer, drawn to the 0-to-1 scope of shaping a product's entire design language and system from scratch rather than joining an established team. There was no existing design system and no prior product to inherit — the product, the component library, and the design practice were all built in parallel.</p>
+  </section>
+
+  <section>
+    <h2 class="label">The Problem</h2>
+    <p>AI agents were becoming first-class actors inside enterprise software — reading data, calling APIs, taking actions on a human's behalf — but most auth systems still modeled identity as strictly human. The design challenge was to make agent authentication feel as legible and trustworthy as human authentication: SSO and provisioning flows that developers could reason about, and a token lifecycle model that made it clear who — or what — was acting, and with what scope of access, at every step.</p>
+  </section>
+
+  <section>
+    <h2 class="label">What I Owned</h2>
+    <ul class="cs-list">
+      <li>SAML/OIDC-based SSO flows</li>
+      <li>SCIM provisioning flows</li>
+      <li>OAuth 2.0 token lifecycle interfaces</li>
+      <li>MCP gateway tooling</li>
+      <li>Agent Auth quickstart, with AI-assisted setup paths for Claude Code, Cursor, and GitHub Copilot</li>
+      <li>The Figma component library used across every product surface</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2 class="label">Approach</h2>
+    <p>Operating as a PM/design hybrid, I split time between strategy, research, and hands-on interaction and system design, working directly with engineering and GTM. Because the product and the design system were being built simultaneously, most of the work was defining primitives first — components, patterns, and terminology — then applying them consistently as new surfaces came online: SSO setup, token management, the agent auth quickstart.</p>
+  </section>
+
+  <section>
+    <h2 class="label">Why It Matters</h2>
+    <p>This is the clearest expression of my broader thesis: as software increasingly acts on our behalf, the permission and trust boundary between a human and the AI agents operating for them has to be designed deliberately, not bolted on. Scalekit's auth infrastructure is literally that boundary — who an agent is, what it's allowed to do, and how a human stays in control of that delegation.</p>
+  </section>
+
+  <section>
+    <h2 class="label">Tools</h2>
+    <p class="cs-tags">Figma · Design Systems · SAML/OIDC · SCIM · OAuth 2.0 · MCP</p>
+  </section>
+
+  <section class="cs-nda">
+    <p>Specifics beyond what's here are under NDA — happy to walk through the details in a conversation.</p>
+  </section>
+
+</main>
+
+<footer>
+  <p>© 2026 Mihir Abnave</p>
+  <p>Bengaluru, India</p>
+</footer>
+
+<script>
+const themeToggle = document.getElementById('themeToggle');
+const root = document.documentElement;
+
+function applyTheme(theme) {
+  if (theme === 'light') {
+    root.setAttribute('data-theme', 'light');
+    themeToggle.textContent = 'Dark';
+  } else {
+    root.removeAttribute('data-theme');
+    themeToggle.textContent = 'Light';
+  }
+}
+
+let savedTheme = null;
+try { savedTheme = localStorage.getItem('theme'); } catch (e) {}
+applyTheme(savedTheme === 'light' ? 'light' : 'dark');
+
+themeToggle.addEventListener('click', () => {
+  const isLight = root.getAttribute('data-theme') === 'light';
+  const next = isLight ? 'dark' : 'light';
+  applyTheme(next);
+  try { localStorage.setItem('theme', next); } catch (e) {}
+});
+</script>
+
+</body>
+</html>

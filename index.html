@@ -82,8 +82,6 @@
 
   /* --- INTRO --- */
   .intro-line { max-width: 560px; }
-  .intro-line + .intro-line { margin-top: 0.5rem; }
-  .intro-line.muted { color: var(--muted); }
 
   .intro-links { margin-top: 1.5rem; display: flex; gap: 1.25rem; flex-wrap: wrap; }
   .intro-links a { text-decoration: underline; text-underline-offset: 3px; color: var(--text); }
@@ -127,6 +125,16 @@
 
   .work-caption { margin-bottom: 1rem; color: var(--text); }
   .work-caption .work-date { color: var(--muted); }
+
+  .work-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-size: 14px;
+  }
+  .work-link:hover { color: var(--muted); }
 
   .work-image {
     aspect-ratio: 16 / 10;
@@ -204,8 +212,7 @@
 
   <!-- INTRO -->
   <section id="home">
-    <p class="intro-line"><strong>Mihir Abnave</strong> is a product designer based in Bengaluru, India.</p>
-    <p class="intro-line muted">Currently founding designer at Scalekit, designing auth infrastructure for AI agents and MCP integrations.</p>
+    <p class="intro-line"><strong>Mihir Abnave</strong> designs the permissions, identity, and trust layer for AI-native products — most recently at Scalekit (AI auth infrastructure) and VON (agentic RevOps). Open to founding and staff-level design roles.</p>
     <div class="intro-links">
       <a href="mailto:mabnuxr@gmail.com">mabnuxr@gmail.com</a>
       <a href="https://linkedin.com/in/mihirabn" target="_blank">LinkedIn ↗</a>
@@ -220,12 +227,14 @@
       <p class="work-caption"><span class="work-date">2024 —</span> Founding Designer, Scalekit. Agent auth infrastructure, from the ground up.</p>
       <div class="work-image"><!-- Placeholder photo (Unsplash) — replace with a real product screenshot/mockup when ready -->
         <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1600&q=80&auto=format&fit=crop" alt="" loading="lazy"></div>
+      <a class="work-link" href="work/scalekit.html">Full case study →</a>
     </div>
 
     <div class="work-entry">
       <p class="work-caption"><span class="work-date">2026 —</span> Contract Product Designer, VON (Rattle Software). Access control for an AI-native RevOps platform.</p>
       <div class="work-image"><!-- Placeholder photo (Unsplash) — replace with a real product screenshot/mockup when ready -->
         <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=1600&q=80&auto=format&fit=crop" alt="" loading="lazy"></div>
+      <a class="work-link" href="work/von.html">Full case study →</a>
     </div>
 
     <div class="work-entry is-placeholder">
@@ -252,7 +261,7 @@
           <div class="row-desc">Sole design owner across the developer platform — SSO, SCIM, and OAuth 2.0 token interfaces for AI agent auth.</div>
           <div class="row-desc">Built and own the Figma component library used across every product surface.</div>
         </div>
-        <div class="row-date">Jan 2024 – Present</div>
+        <div class="row-date">Jan 2024 – May 2026</div>
       </div>
 
       <div class="row">
