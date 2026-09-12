@@ -87,10 +87,7 @@
   .intro-links a { text-decoration: underline; text-underline-offset: 3px; color: var(--text); }
   .intro-links a:hover { color: var(--muted); }
 
-  /* --- ABOUT --- */
-  #about p { max-width: 620px; color: var(--muted); }
-
-  /* --- LIST (Experience / Education) --- */
+  /* --- LIST (Education) --- */
   .list { display: flex; flex-direction: column; }
 
   .row {
@@ -110,15 +107,83 @@
 
   .row-sub { color: var(--muted); margin-bottom: 0.6rem; }
 
-  .row-desc { color: var(--muted); font-size: 14px; }
-  .row-desc + .row-desc { margin-top: 0.35rem; }
-
   .row-date {
     color: var(--muted);
     white-space: nowrap;
     font-size: 13px;
     text-align: right;
   }
+
+  /* --- EXPERIENCE ACCORDION --- */
+  .exp-list { display: flex; flex-direction: column; }
+
+  .exp-item { border-top: 1px solid var(--border); }
+  .exp-item:last-child { border-bottom: 1px solid var(--border); }
+
+  .exp-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1.5rem;
+    width: 100%;
+    padding: 1.5rem 0;
+    background: none;
+    border: none;
+    color: inherit;
+    font-family: var(--mono);
+    font-size: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .exp-header-main { flex: 1; }
+
+  .exp-title { font-weight: 700; color: var(--text); margin-bottom: 0.2rem; }
+
+  .exp-sub { color: var(--muted); }
+
+  .exp-header-end {
+    display: flex;
+    align-items: baseline;
+    gap: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .exp-date {
+    color: var(--muted);
+    white-space: nowrap;
+    font-size: 13px;
+  }
+
+  .exp-toggle {
+    display: inline-block;
+    color: var(--muted);
+    font-size: 15px;
+    line-height: 1;
+    transition: transform 0.25s ease, color 0.2s ease;
+  }
+
+  .exp-item.is-open .exp-toggle { transform: rotate(45deg); }
+  .exp-header:hover .exp-toggle { color: var(--text); }
+
+  .exp-panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.25s ease;
+  }
+
+  .exp-item.is-open .exp-panel { grid-template-rows: 1fr; }
+
+  .exp-panel-inner { overflow: hidden; }
+
+  .exp-desc {
+    color: var(--muted);
+    font-size: 14px;
+    padding-bottom: 1.5rem;
+    max-width: 620px;
+  }
+
+  .exp-desc + .exp-desc { margin-top: 0.35rem; }
 
   /* --- SELECTED WORK --- */
   .work-entry + .work-entry { margin-top: 3rem; }
@@ -162,17 +227,6 @@
 
   .work-entry.is-placeholder .work-caption { color: var(--muted); }
 
-  /* --- SKILLS --- */
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-  }
-
-  .skill-group-title { font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
-
-  .skill-line { color: var(--muted); font-size: 14px; }
-
   /* --- CONTACT --- */
   #contact p { max-width: 560px; color: var(--muted); }
   #contact a { color: var(--text); text-decoration: underline; text-underline-offset: 3px; }
@@ -199,7 +253,8 @@
     section:first-of-type { padding-top: 3.5rem; }
     .row { flex-direction: column; align-items: flex-start; gap: 0.35rem; }
     .row-date { text-align: left; }
-    .skills-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .exp-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+    .exp-header-end { align-self: flex-start; }
     footer { flex-direction: column; gap: 0.4rem; }
   }
 </style>
@@ -212,10 +267,145 @@
 
   <!-- INTRO -->
   <section id="home">
-    <p class="intro-line"><strong>Mihir Abnave</strong> designs the permissions, identity, and trust layer for AI-native products — most recently at Scalekit (AI auth infrastructure) and VON (agentic RevOps). Open to founding and staff-level design roles.</p>
+    <p class="intro-line"><strong>Mihir Abnave</strong> is a product designer based in Bengaluru.</p>
     <div class="intro-links">
       <a href="mailto:mabnuxr@gmail.com">mabnuxr@gmail.com</a>
       <a href="https://linkedin.com/in/mihirabn" target="_blank">LinkedIn ↗</a>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="reveal">
+    <h2 class="label">Experience</h2>
+    <div class="exp-list">
+
+      <div class="exp-item">
+        <button class="exp-header" aria-expanded="false">
+          <span class="exp-header-main">
+            <span class="exp-title">Scalekit</span>
+            <span class="exp-sub">Founding Designer · Bengaluru, India</span>
+          </span>
+          <span class="exp-header-end">
+            <span class="exp-date">Jan 2024 – May 2026</span>
+            <span class="exp-toggle" aria-hidden="true">+</span>
+          </span>
+        </button>
+        <div class="exp-panel">
+          <div class="exp-panel-inner">
+            <p class="exp-desc">Sole design owner across the developer platform — SSO, SCIM, and OAuth 2.0 token interfaces for AI agent auth.</p>
+            <p class="exp-desc">Built and own the Figma component library used across every product surface.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <button class="exp-header" aria-expanded="false">
+          <span class="exp-header-main">
+            <span class="exp-title">VON (Rattle Software)</span>
+            <span class="exp-sub">Contract Product Designer · Remote</span>
+          </span>
+          <span class="exp-header-end">
+            <span class="exp-date">May – Jun 2026</span>
+            <span class="exp-toggle" aria-hidden="true">+</span>
+          </span>
+        </button>
+        <div class="exp-panel">
+          <div class="exp-panel-inner">
+            <p class="exp-desc">Designed the full access and permissions model for an AI-native RevOps platform — roles, license tiers, and integration scoping.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <button class="exp-header" aria-expanded="false">
+          <span class="exp-header-main">
+            <span class="exp-title">BetterPlace</span>
+            <span class="exp-sub">Principal Product Designer · Bengaluru, India</span>
+          </span>
+          <span class="exp-header-end">
+            <span class="exp-date">May – Dec 2023</span>
+            <span class="exp-toggle" aria-hidden="true">+</span>
+          </span>
+        </button>
+        <div class="exp-panel">
+          <div class="exp-panel-inner">
+            <p class="exp-desc">Designed frontline workforce management tooling — attendance, payroll, and gig worker RBAC.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <button class="exp-header" aria-expanded="false">
+          <span class="exp-header-main">
+            <span class="exp-title">Leena AI</span>
+            <span class="exp-sub">Principal / Lead Product Designer · Remote</span>
+          </span>
+          <span class="exp-header-end">
+            <span class="exp-date">Mar 2021 – Feb 2023</span>
+            <span class="exp-toggle" aria-hidden="true">+</span>
+          </span>
+        </button>
+        <div class="exp-panel">
+          <div class="exp-panel-inner">
+            <p class="exp-desc">Built a design system and led a team of 6 across three 0→1 product lines, including a generative-AI document product.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <button class="exp-header" aria-expanded="false">
+          <span class="exp-header-main">
+            <span class="exp-title">COUNTRY Financial</span>
+            <span class="exp-sub">Senior UX Researcher · Atlanta, US</span>
+          </span>
+          <span class="exp-header-end">
+            <span class="exp-date">Mar 2018 – Aug 2020</span>
+            <span class="exp-toggle" aria-hidden="true">+</span>
+          </span>
+        </button>
+        <div class="exp-panel">
+          <div class="exp-panel-inner">
+            <p class="exp-desc">Led research and usability testing to optimise enterprise insurance policy-writing workflows.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <button class="exp-header" aria-expanded="false">
+          <span class="exp-header-main">
+            <span class="exp-title">Wayfair</span>
+            <span class="exp-sub">Product Designer · Boston, US</span>
+          </span>
+          <span class="exp-header-end">
+            <span class="exp-date">Jul 2017 – Jun 2018</span>
+            <span class="exp-toggle" aria-hidden="true">+</span>
+          </span>
+        </button>
+        <div class="exp-panel">
+          <div class="exp-panel-inner">
+            <p class="exp-desc">Designed customer and agent-facing call/chat tooling; pioneered AR-based product discovery.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="exp-item">
+        <button class="exp-header" aria-expanded="false">
+          <span class="exp-header-main">
+            <span class="exp-title">Prysm Inc.</span>
+            <span class="exp-sub">UX Specialist · Indianapolis, US</span>
+          </span>
+          <span class="exp-header-end">
+            <span class="exp-date">Jul 2016 – Jul 2017</span>
+            <span class="exp-toggle" aria-hidden="true">+</span>
+          </span>
+        </button>
+        <div class="exp-panel">
+          <div class="exp-panel-inner">
+            <p class="exp-desc">Led research and usability testing for large-screen collaborative display products.</p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
@@ -243,84 +433,6 @@
     </div>
   </section>
 
-  <!-- ABOUT -->
-  <section id="about" class="reveal">
-    <h2 class="label">About</h2>
-    <p>I design complex enterprise products — authentication systems, developer platforms, and AI-native interfaces — where technical depth and UX clarity have to coexist. I operate as a PM/design hybrid: I've built design systems from scratch, led a team of 6 designers, and shipped 0→1 across multiple product lines in the US and India over 9+ years.</p>
-  </section>
-
-  <!-- EXPERIENCE -->
-  <section id="experience" class="reveal">
-    <h2 class="label">Experience</h2>
-    <div class="list">
-
-      <div class="row">
-        <div class="row-main">
-          <div class="row-title">Scalekit</div>
-          <div class="row-sub">Founding Designer · Bengaluru, India</div>
-          <div class="row-desc">Sole design owner across the developer platform — SSO, SCIM, and OAuth 2.0 token interfaces for AI agent auth.</div>
-          <div class="row-desc">Built and own the Figma component library used across every product surface.</div>
-        </div>
-        <div class="row-date">Jan 2024 – May 2026</div>
-      </div>
-
-      <div class="row">
-        <div class="row-main">
-          <div class="row-title">VON (Rattle Software)</div>
-          <div class="row-sub">Contract Product Designer · Remote</div>
-          <div class="row-desc">Designed the full access and permissions model for an AI-native RevOps platform — roles, license tiers, and integration scoping.</div>
-        </div>
-        <div class="row-date">May – Jun 2026</div>
-      </div>
-
-      <div class="row">
-        <div class="row-main">
-          <div class="row-title">BetterPlace</div>
-          <div class="row-sub">Principal Product Designer · Bengaluru, India</div>
-          <div class="row-desc">Designed frontline workforce management tooling — attendance, payroll, and gig worker RBAC.</div>
-        </div>
-        <div class="row-date">May – Dec 2023</div>
-      </div>
-
-      <div class="row">
-        <div class="row-main">
-          <div class="row-title">Leena AI</div>
-          <div class="row-sub">Principal / Lead Product Designer · Remote</div>
-          <div class="row-desc">Built a design system and led a team of 6 across three 0→1 product lines, including a generative-AI document product.</div>
-        </div>
-        <div class="row-date">Mar 2021 – Feb 2023</div>
-      </div>
-
-      <div class="row">
-        <div class="row-main">
-          <div class="row-title">COUNTRY Financial</div>
-          <div class="row-sub">Senior UX Researcher · Atlanta, US</div>
-          <div class="row-desc">Led research and usability testing to optimise enterprise insurance policy-writing workflows.</div>
-        </div>
-        <div class="row-date">Mar 2018 – Aug 2020</div>
-      </div>
-
-      <div class="row">
-        <div class="row-main">
-          <div class="row-title">Wayfair</div>
-          <div class="row-sub">Product Designer · Boston, US</div>
-          <div class="row-desc">Designed customer and agent-facing call/chat tooling; pioneered AR-based product discovery.</div>
-        </div>
-        <div class="row-date">Jul 2017 – Jun 2018</div>
-      </div>
-
-      <div class="row">
-        <div class="row-main">
-          <div class="row-title">Prysm Inc.</div>
-          <div class="row-sub">UX Specialist · Indianapolis, US</div>
-          <div class="row-desc">Led research and usability testing for large-screen collaborative display products.</div>
-        </div>
-        <div class="row-date">Jul 2016 – Jul 2017</div>
-      </div>
-
-    </div>
-  </section>
-
   <!-- EDUCATION -->
   <section id="education" class="reveal">
     <h2 class="label">Education</h2>
@@ -338,25 +450,6 @@
           <div class="row-sub">Maharashtra Institute of Technology, Pune</div>
         </div>
         <div class="row-date">2009 – 2013</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- SKILLS -->
-  <section id="skills" class="reveal">
-    <h2 class="label">Skills</h2>
-    <div class="skills-grid">
-      <div>
-        <div class="skill-group-title">Design & Research</div>
-        <p class="skill-line">Product Design, UX Research, Design Systems, Information Architecture, Interaction Design, Workshop Facilitation</p>
-      </div>
-      <div>
-        <div class="skill-group-title">Product & Strategy</div>
-        <p class="skill-line">PM/PD Hybrid Operating, Product Strategy, Developer Experience, Go-to-Market Alignment, Design Team Management</p>
-      </div>
-      <div>
-        <div class="skill-group-title">Domain Expertise</div>
-        <p class="skill-line">Agentic AI & MCP, IAM/Auth Infrastructure, Enterprise SSO & SCIM, OAuth 2.0, B2B SaaS, Audit & Security Tooling</p>
       </div>
     </div>
   </section>
@@ -400,6 +493,24 @@ themeToggle.addEventListener('click', () => {
   const next = isLight ? 'dark' : 'light';
   applyTheme(next);
   try { localStorage.setItem('theme', next); } catch (e) {}
+});
+
+// Experience accordion — one open at a time
+document.querySelectorAll('.exp-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const item = header.closest('.exp-item');
+    const wasOpen = item.classList.contains('is-open');
+
+    document.querySelectorAll('.exp-item.is-open').forEach(open => {
+      open.classList.remove('is-open');
+      open.querySelector('.exp-header').setAttribute('aria-expanded', 'false');
+    });
+
+    if (!wasOpen) {
+      item.classList.add('is-open');
+      header.setAttribute('aria-expanded', 'true');
+    }
+  });
 });
 
 const observer = new IntersectionObserver((entries) => {
