@@ -208,22 +208,26 @@
     gap: 1.5rem;
   }
 
-  .work-caption { margin-bottom: 1rem; color: var(--text); font-size: 14px; }
+  .work-card {
+    display: block;
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .work-caption { margin-bottom: 0.9rem; color: var(--text); font-size: 14px; }
   .work-caption .work-date { color: var(--muted); }
 
-  .work-link {
-    display: inline-block;
-    margin-top: 1rem;
-    color: var(--text);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    font-size: 14px;
+  .work-tags {
+    margin-bottom: 1rem;
+    color: var(--muted);
+    font-size: 12px;
   }
-  .work-link:hover { color: var(--muted); }
 
   .work-image {
-    max-height: 200px;
-    border: 1px solid var(--border);
+    aspect-ratio: 16 / 10;
     border-radius: var(--radius);
     background: var(--surface);
     overflow: hidden;
@@ -231,23 +235,28 @@
 
   .work-image img {
     width: 100%;
-    height: 200px;
+    height: 100%;
     object-fit: cover;
     display: block;
     filter: grayscale(1) contrast(1.05);
+    transition: transform 0.175s ease, filter 0.175s ease;
   }
 
-  .work-image--empty {
-    height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--muted);
-    font-size: 13px;
-    border-style: dashed;
+  .work-card:hover .work-image img {
+    transform: scale(1.02);
+    filter: grayscale(1) contrast(1.05) brightness(1.12);
   }
 
-  .work-entry.is-placeholder .work-caption { color: var(--muted); }
+  .work-cta {
+    display: inline-block;
+    margin-top: 1rem;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    font-size: 14px;
+    transition: color 0.175s ease;
+  }
+
+  .work-card:hover .work-cta { color: var(--muted); }
 
   /* --- CONTACT --- */
   #contact p { max-width: 560px; color: var(--muted); }
@@ -439,24 +448,21 @@
     <h2 class="label">Selected Work</h2>
 
     <div class="work-list">
-      <div class="work-entry">
+      <a class="work-card" href="work/scalekit.html">
         <p class="work-caption"><span class="work-date">2024 —</span> Founding Designer, Scalekit. Agent auth infrastructure, from the ground up.</p>
+        <p class="work-tags">Figma · SAML/OIDC · OAuth 2.0 · MCP</p>
         <div class="work-image"><!-- Placeholder photo (Unsplash) — replace with a real product screenshot/mockup when ready -->
           <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1200&q=80&auto=format&fit=crop" alt="" loading="lazy"></div>
-        <a class="work-link" href="work/scalekit.html">Full case study →</a>
-      </div>
+        <span class="work-cta">Full case study →</span>
+      </a>
 
-      <div class="work-entry">
+      <a class="work-card" href="work/von.html">
         <p class="work-caption"><span class="work-date">2026 —</span> Contract Product Designer, VON (Rattle Software). Access control for an AI-native RevOps platform.</p>
+        <p class="work-tags">Figma · Storybook · Tailwind · shadcn/ui</p>
         <div class="work-image"><!-- Placeholder photo (Unsplash) — replace with a real product screenshot/mockup when ready -->
           <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80&auto=format&fit=crop" alt="" loading="lazy"></div>
-        <a class="work-link" href="work/von.html">Full case study →</a>
-      </div>
-
-      <div class="work-entry is-placeholder">
-        <p class="work-caption"><span class="work-date">In progress —</span> a side project, coming soon.</p>
-        <div class="work-image work-image--empty">More coming soon</div>
-      </div>
+        <span class="work-cta">Full case study →</span>
+      </a>
     </div>
   </section>
 
