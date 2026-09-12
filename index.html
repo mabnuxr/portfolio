@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mihir Abnave — Product Designer</title>
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <script>
 (function () {
   try {
@@ -23,6 +26,7 @@
     --text: #eaeae6;
     --muted: #88867f;
     --mono: Menlo, Consolas, Monaco, 'Liberation Mono', monospace;
+    --radius: 4px;
   }
 
   :root[data-theme="light"] {
@@ -67,6 +71,18 @@
   }
 
   .theme-toggle:hover { color: var(--text); }
+
+  /* --- SITE MARK --- */
+  .site-mark {
+    position: fixed;
+    top: 1.5rem;
+    left: 1.5rem;
+    z-index: 10;
+    font-size: 22px;
+    line-height: 1;
+    filter: grayscale(1);
+    opacity: 0.85;
+  }
 
   /* --- SECTIONS --- */
   section { padding: 3rem 0; }
@@ -186,9 +202,13 @@
   .exp-desc + .exp-desc { margin-top: 0.35rem; }
 
   /* --- SELECTED WORK --- */
-  .work-entry + .work-entry { margin-top: 3rem; }
+  .work-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
 
-  .work-caption { margin-bottom: 1rem; color: var(--text); }
+  .work-caption { margin-bottom: 1rem; color: var(--text); font-size: 14px; }
   .work-caption .work-date { color: var(--muted); }
 
   .work-link {
@@ -202,21 +222,23 @@
   .work-link:hover { color: var(--muted); }
 
   .work-image {
-    aspect-ratio: 16 / 10;
+    max-height: 200px;
     border: 1px solid var(--border);
+    border-radius: var(--radius);
     background: var(--surface);
     overflow: hidden;
   }
 
   .work-image img {
     width: 100%;
-    height: 100%;
+    height: 200px;
     object-fit: cover;
     display: block;
     filter: grayscale(1) contrast(1.05);
   }
 
   .work-image--empty {
+    height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -249,18 +271,21 @@
   /* --- RESPONSIVE --- */
   @media (max-width: 640px) {
     .theme-toggle { top: 1.1rem; right: 1.25rem; font-size: 11.5px; }
+    .site-mark { top: 1.1rem; left: 1.25rem; font-size: 19px; }
     main { padding: 0 1.25rem; }
     section:first-of-type { padding-top: 3.5rem; }
     .row { flex-direction: column; align-items: flex-start; gap: 0.35rem; }
     .row-date { text-align: left; }
     .exp-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
     .exp-header-end { align-self: flex-start; }
+    .work-list { grid-template-columns: 1fr; }
     footer { flex-direction: column; gap: 0.4rem; }
   }
 </style>
 </head>
 <body>
 
+<span class="site-mark" aria-hidden="true">🧘</span>
 <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">Light</button>
 
 <main>
@@ -413,23 +438,25 @@
   <section id="work" class="reveal">
     <h2 class="label">Selected Work</h2>
 
-    <div class="work-entry">
-      <p class="work-caption"><span class="work-date">2024 —</span> Founding Designer, Scalekit. Agent auth infrastructure, from the ground up.</p>
-      <div class="work-image"><!-- Placeholder photo (Unsplash) — replace with a real product screenshot/mockup when ready -->
-        <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=1600&q=80&auto=format&fit=crop" alt="" loading="lazy"></div>
-      <a class="work-link" href="work/scalekit.html">Full case study →</a>
-    </div>
+    <div class="work-list">
+      <div class="work-entry">
+        <p class="work-caption"><span class="work-date">2024 —</span> Founding Designer, Scalekit. Agent auth infrastructure, from the ground up.</p>
+        <div class="work-image"><!-- Placeholder photo (Unsplash) — replace with a real product screenshot/mockup when ready -->
+          <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=1200&q=80&auto=format&fit=crop" alt="" loading="lazy"></div>
+        <a class="work-link" href="work/scalekit.html">Full case study →</a>
+      </div>
 
-    <div class="work-entry">
-      <p class="work-caption"><span class="work-date">2026 —</span> Contract Product Designer, VON (Rattle Software). Access control for an AI-native RevOps platform.</p>
-      <div class="work-image"><!-- Placeholder photo (Unsplash) — replace with a real product screenshot/mockup when ready -->
-        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?w=1600&q=80&auto=format&fit=crop" alt="" loading="lazy"></div>
-      <a class="work-link" href="work/von.html">Full case study →</a>
-    </div>
+      <div class="work-entry">
+        <p class="work-caption"><span class="work-date">2026 —</span> Contract Product Designer, VON (Rattle Software). Access control for an AI-native RevOps platform.</p>
+        <div class="work-image"><!-- Placeholder photo (Unsplash) — replace with a real product screenshot/mockup when ready -->
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&q=80&auto=format&fit=crop" alt="" loading="lazy"></div>
+        <a class="work-link" href="work/von.html">Full case study →</a>
+      </div>
 
-    <div class="work-entry is-placeholder">
-      <p class="work-caption"><span class="work-date">In progress —</span> a side project, coming soon.</p>
-      <div class="work-image work-image--empty">More coming soon</div>
+      <div class="work-entry is-placeholder">
+        <p class="work-caption"><span class="work-date">In progress —</span> a side project, coming soon.</p>
+        <div class="work-image work-image--empty">More coming soon</div>
+      </div>
     </div>
   </section>
 
