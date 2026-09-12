@@ -4,9 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Mihir Abnave — Product Designer</title>
-<link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <script>
 (function () {
   try {
@@ -72,17 +69,32 @@
 
   .theme-toggle:hover { color: var(--text); }
 
-  /* --- SITE MARK --- */
-  .site-mark {
+  /* --- NAME LABEL --- */
+  .name-label {
     position: fixed;
     top: 1.5rem;
     left: 1.5rem;
     z-index: 10;
-    font-size: 22px;
-    line-height: 1;
-    filter: grayscale(1);
-    opacity: 0.85;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
   }
+
+  .name-label-default { display: block; transition: opacity 0.15s ease; }
+
+  .name-label-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 0.15s ease;
+  }
+
+  .name-label:hover .name-label-default { opacity: 0; }
+  .name-label:hover .name-label-hover { opacity: 1; }
 
   /* --- SECTIONS --- */
   section { padding: 3rem 0; }
@@ -97,7 +109,18 @@
   }
 
   /* --- INTRO --- */
+  .profile-photo {
+    display: block;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 2rem;
+  }
+
   .intro-line { max-width: 560px; }
+
+  .intro-line + .intro-line { margin-top: 0.9rem; }
 
   .intro-links { margin-top: 1.5rem; display: flex; gap: 1.25rem; flex-wrap: wrap; }
   .intro-links a { text-decoration: underline; text-underline-offset: 3px; color: var(--text); }
@@ -250,7 +273,7 @@
   /* --- RESPONSIVE --- */
   @media (max-width: 640px) {
     .theme-toggle { top: 1.1rem; right: 1.25rem; font-size: 11.5px; }
-    .site-mark { top: 1.1rem; left: 1.25rem; font-size: 19px; }
+    .name-label { top: 1.1rem; left: 1.25rem; font-size: 10.5px; }
     main { padding: 0 1.25rem; }
     section:first-of-type { padding-top: 3.5rem; }
     .exp-header { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
@@ -262,14 +285,19 @@
 </head>
 <body>
 
-<span class="site-mark" aria-hidden="true">🧘</span>
+<div class="name-label">
+  <span class="name-label-default">Mihir Abnave</span>
+  <span class="name-label-hover">Hey there!</span>
+</div>
 <button class="theme-toggle" id="themeToggle" aria-label="Toggle color theme">Light</button>
 
 <main>
 
   <!-- INTRO -->
   <section id="home">
+    <img class="profile-photo" src="profile.jpg" alt="Mihir Abnave" width="100" height="100">
     <p class="intro-line"><strong>Mihir Abnave</strong> is a product designer based in Bengaluru, with an HCI research background.</p>
+    <p class="intro-line">~10 years across every stage — 0 to 1, 1 to 10, 10 to 100.<br>Most recently: founding designer at an AI auth company, then permissions design for an agentic RevOps platform.</p>
     <div class="intro-links">
       <a href="mailto:mabnuxr@gmail.com">mabnuxr@gmail.com</a>
       <a href="https://linkedin.com/in/mihirabn" target="_blank">LinkedIn ↗</a>
